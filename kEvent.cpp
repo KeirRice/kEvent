@@ -201,13 +201,17 @@ void EventManager::resetIntervals()
 }
 
 
-inline void EventManager::setNextEventMS(long next_event_ms){
 #ifdef ENABLE_FANCY_TIMER
+inline void EventManager::setNextEventMS(long next_event_ms){
   _next_event_ms = next_event_ms;
-#endif // ENABLE_FANCY_TIMER
 }
 inline void EventManager::minSetNextEventMS(long next_event_ms){
-#ifdef ENABLE_FANCY_TIMER
   _next_event_ms = min(_next_event_ms, next_event_ms);
-#endif // ENABLE_FANCY_TIMER
 }
+
+#else // ENABLE_FANCY_TIMER
+
+inline void EventManager::setNextEventMS(long /*next_event_ms*/){}
+inline void EventManager::minSetNextEventMS(long /*next_event_ms*/){}
+
+#endif // ENABLE_FANCY_TIMER
